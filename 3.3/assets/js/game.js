@@ -38,19 +38,28 @@ promptFight = promptFight.toLowerCase();
 // fight function (now with parameter for enemy's name)
 var fight = function(enemy) {
   
+  var isPlayerTurn = true;
+
+  // randomly change turn order
+  if (Math.random() > 0.5) {
+    isPlayerTurn = false;
+  }
   // repeat and execute as long as the enemy-robot is alive 
   
   while (playerInfo.health > 0 && enemy.health > 0) {
+
+    if (isPlayerTurn) {
+
     // ask player if they'd like to fight or skip using fightOrSkip function
     if (fightOrSkip()) {
       // if true, leave fight by breaking loop
       break;
     }
+  }
   var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
 
     // remove enemy's health by subtracting the amount set in the playerInfo.attack variable
     // generate random damage value based on player's attack power
-    var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
 
     enemy.health = Math.max(0, enemy.health - damage);
 
@@ -88,6 +97,8 @@ var fight = function(enemy) {
     } else {
       window.alert(playerInfo.name + ' still has ' + playerInfo.health + ' health left.');
     }
+      //switch turn order for next round
+      isPlayerTurn = !isPlayerTurn;
   }
 };
 
@@ -244,12 +255,3 @@ var enemyInfo = [
 // start first game when page loads
 startGame();
 
-
-// prints 3.141592653589793
-console.log(Math.PI);
-
- // rounds to the nearest whole number (4)
-console.log(Math.round(4.4));
-
- // prints the square root (5)
-console.log(Math.sqrt(25));
